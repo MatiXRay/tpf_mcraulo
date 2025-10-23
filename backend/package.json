@@ -1,0 +1,32 @@
+{
+  "name": "pp1-burger-mvc_con_endpoints",
+  "version": "1.0.0",
+  "description": "API MVC para autoservicio de hamburguesería con Node.js, Express y PostgreSQL",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "postgres",
+    "mvc",
+    "api",
+    "hamburgueseria"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "multer": "^2.0.2",
+    "postgres": "^3.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
