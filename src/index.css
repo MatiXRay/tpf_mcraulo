@@ -1,0 +1,226 @@
+/* =============================================================================
+// src/index.css - VERSIÓN 2.0 - ESTILOS OPTIMIZADOS Y LIMPIOS
+// ============================================================================= */
+
+@import "tailwindcss";
+
+
+
+@layer base {
+  :root {
+    /* Colores principales de McDonald's */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 350 85% 55%; /* Rojo McDonald's */
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 45 90% 55%; /* Amarillo McDonald's */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 350 85% 55%;
+
+    --radius: 0.75rem;
+  }
+
+  /* Estilos base optimizados */
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Mejoras de tipografía */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer components {
+  /* Componentes personalizados */
+  .btn-primary {
+    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .card-product {
+    @apply bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-red-200;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-red-50 via-yellow-50 to-red-50;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent;
+  }
+
+  /* Animaciones personalizadas */
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s infinite;
+  }
+
+  /* Efectos de hover mejorados */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  .hover-glow {
+    @apply transition-shadow duration-200 hover:shadow-xl;
+  }
+
+  /* Layouts responsivos */
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+  }
+}
+
+@layer utilities {
+  /* Utilidades personalizadas */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Efectos de glassmorphism */
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-sm border border-black/10;
+  }
+
+  /* Gradientes personalizados */
+  .gradient-mcdonalds {
+    @apply bg-gradient-to-r from-red-600 via-red-500 to-yellow-500;
+  }
+
+  .gradient-mcdonalds-soft {
+    @apply bg-gradient-to-br from-red-50 via-yellow-50 to-red-50;
+  }
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Mejoras para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Modo oscuro (preparado para futuro) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 350 85% 55%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 350 85% 55%;
+  }
+}
