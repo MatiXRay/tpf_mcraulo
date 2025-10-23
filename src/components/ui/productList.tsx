@@ -159,17 +159,27 @@ const EmptyState = ({ titulo, categoria, onRetry }: { titulo?: string; categoria
 );
 
 const ProductCard = ({ product, onProductClick }: { product: Product; onProductClick: (product: Product) => void }) => {
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.nativeEvent.stopImmediatePropagation();
+    }
 
-    console.log('🛒 Agregando producto:', product.name);
-    onProductClick(product);
+    try {
+      onProductClick(product);
+    } catch (error) {
+      console.error('Error en handleAddToCart:', error);
+    }
+
+    return false;
   };
 
   return (
-    <div className="cursor-pointer group overflow-hidden border-2 hover:border-primary/50 transition-all duration-200 hover:shadow-lg flex flex-col justify-between h-full bg-white rounded-xl border border-gray-200 py-6 shadow-sm">
+    <div
+      className="cursor-pointer group overflow-hidden border-2 hover:border-primary/50 transition-all duration-200 hover:shadow-lg flex flex-col justify-between h-full bg-white rounded-xl border border-gray-200 py-6 shadow-sm"
+      onClick={(e) => e.preventDefault()}
+    >
       <div className="relative">
         <img
           alt={product.imageAlt}
@@ -204,12 +214,13 @@ const ProductCard = ({ product, onProductClick }: { product: Product; onProductC
 
         <button
           type="button"
-          className="w-full h-8 text-xs font-medium bg-emerald-700 hover:bg-emerald-800 text-white rounded-md flex items-center justify-center gap-1"
           onClick={handleAddToCart}
+          className="w-full h-8 text-xs font-medium bg-emerald-700 hover:bg-emerald-800 text-white rounded-md flex items-center justify-center gap-1"
         >
           <Plus className="h-3 w-3" />
           Agregar
         </button>
+
       </div>
     </div>
   );
@@ -285,7 +296,18 @@ export default function ProductList({
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div
+        className="
+    grid 
+    gap-6 
+    grid-cols-1 
+    sm:grid-cols-2 
+    md:grid-cols-3 
+    lg:grid-cols-4 
+    2xl:grid-cols-4 
+    place-items-stretch
+  "
+      >
         {productos.map((product) => (
           <ProductCard
             key={product.id}
@@ -294,6 +316,7 @@ export default function ProductList({
           />
         ))}
       </div>
+
     </div>
   );
 }

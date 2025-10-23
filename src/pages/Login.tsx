@@ -5,6 +5,9 @@ import qr from "@/assets/qr-code-example.jpg"
 import { QrCode } from "lucide-react"
 import { Link } from "react-router-dom"
 
+
+
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background p-4 md:p-8">
@@ -33,6 +36,7 @@ export default function HomePage() {
               </Button>
             </Link>
 
+
             <Button
               size="lg"
               className="cursor-pointer hover:scale-103 transition-all duration-200 w-full text-xl py-8 border-2 bg-neutral-100 border-stone-800 text-stone-900 hover:bg-primary/90 hover:text-primary-foreground font-semibold shadow-lg hover:shadow-xl"
@@ -42,6 +46,7 @@ export default function HomePage() {
             >
               👤 Asociarse
             </Button>
+
           </div>
 
           {/* Sección QR */}

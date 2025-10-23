@@ -2,7 +2,7 @@
 // src/pages/Home.tsx - VERSIÓN 2.0 OPTIMIZADA
 // =============================================================================
 
-import React, { useState, useCallback, useMemo } from "react"
+import React, { useState, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Minus, Plus } from "lucide-react"
 import SideBar from "@/components/ui/sidebar"
@@ -10,6 +10,10 @@ import ProductList, { type Product } from "@/components/ui/productList"
 import Checkout from "./Checkout"
 import CashPayment from "./CashPayment"
 import CardPayment from "./CardPayment"
+import { useCart } from "@/hooks/useCart";
+
+
+
 
 // ===== TIPOS E INTERFACES =====
 interface CartItem extends Product {
@@ -22,74 +26,27 @@ type CheckoutStep = 'products' | 'checkout' | 'cash' | 'card';
 export default function Home() {
   // ===== ESTADOS =====
   const [selectedCategory, setSelectedCategory] = useState<string>("todas");
-  const [carritoItems, setCarritoItems] = useState<CartItem[]>([])
   const [checkoutStep, setCheckoutStep] = useState<CheckoutStep>('products');
-  const [showFooter, setShowFooter] = useState<boolean>(false);
 
+  // Reemplazar todo el manejo del carrito con el hook
+  const {
+    carritoItems,
+    totalCarrito,
+    showFooter,
+    addToCart,
+    updateQuantity: handleUpdateCantidad,
+    removeFromCart: handleRemoveItem
+  } = useCart();
 
-  
-  // ===== EFECTOS =====
-  React.useEffect(() => {
-    console.log('🔄 useEffect ejecutado:', { carritoLength: carritoItems.length, showFooter });
-    if (carritoItems.length === 0) {
-      setShowFooter(false);
-    }
-  }, [carritoItems.length]);
-
-
-
-  // ===== FUNCIONES DE MANEJO DEL CARRITO =====
   const handleProductClick = useCallback((producto: Product) => {
-    console.log('🛒 handleProductClick ejecutado:', producto.name);
-
-    setShowFooter(true);
-    setCarritoItems(prev => {
-      const itemExistente = prev.find(item => item.id === producto.id);
-      if (itemExistente) {
-        return prev.map(item =>
-          item.id === producto.id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...producto, cantidad: 1 }];
-    });
-  }, []);
-
-  const handleUpdateCantidad = useCallback((productoId: number, nuevaCantidad: number) => {
-    setCarritoItems(prev => {
-      if (nuevaCantidad <= 0) {
-        const newItems = prev.filter(item => item.id !== productoId);
-        if (newItems.length === 0) {
-          setShowFooter(false);
-        }
-        return newItems;
-      }
-      return prev.map(item =>
-        item.id === productoId
-          ? { ...item, cantidad: nuevaCantidad }
-          : item
-      );
-    });
-  }, []);
-
-  const handleRemoveItem = useCallback((productoId: number) => {
-    setCarritoItems(prev => {
-      const newItems = prev.filter(item => item.id !== productoId);
-      if (newItems.length === 0) {
-        setShowFooter(false);
-      }
-      return newItems;
-    });
-  }, []);
-
-  // ===== CÁLCULOS MEMOIZADOS =====
-  const totalCarrito = useMemo(() => {
-    return carritoItems.reduce((total, item) => {
-      const precio = parseFloat(item.price.replace('$', ''));
-      return total + (precio * item.cantidad);
-    }, 0);
-  }, [carritoItems]);
+    try {
+      console.log('🛒 handleProductClick ejecutado:', producto.name);
+      addToCart(producto);
+    } catch (error) {
+      console.error('Error en handleProductClick:', error);
+    }
+    return false; // Agregar esto para prevenir propagación
+  }, [addToCart]);
 
   // ===== COMPONENTES INTERNOS =====
   const CartFooter = () => {
